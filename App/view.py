@@ -47,26 +47,26 @@ def initCatalog():
     """
     Inicializa el catalogo de videos
     """
-    return controller.initCatalog()
+    pass
 
 
 def loadData(catalog):
     """
     Carga la informacion de los videos en la estructura de datos
     """
-    controller.loadData(catalog)
+    pass
 
 def topVideos():
-    return controller.topVideos()
+    pass
 
 def trendingCountry():
-    return controller.trendingCountry()
+    pass
 
 def trendingCategory():
-    return controller.trendingCategory()
+    pass
 
 def mostLiked():
-    return controller.mostLiked()
+    pass
 
 
 catalog = None
