@@ -37,7 +37,37 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Buscar Top x de videos mas vistos en un pais en una categoria")
+    print("3- Buscar video con mas dias en trending por pais")
+    print("4- Buscar video con mas dias en trending por categoria")
+    print("5- Buscar videos con mas likes con un tag especifico")
+    print("0- Salir")
+
+def initCatalog():
+    """
+    Inicializa el catalogo de videos
+    """
+    return controller.initCatalog()
+
+
+def loadData(catalog):
+    """
+    Carga la informacion de los videos en la estructura de datos
+    """
+    controller.loadData(catalog)
+
+def topVideos():
+    return controller.topVideos()
+
+def trendingCountry():
+    return controller.trendingCountry()
+
+def trendingCategory():
+    return controller.trendingCategory()
+
+def mostLiked():
+    return controller.mostLiked()
+
 
 catalog = None
 
@@ -49,10 +79,21 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        catalog = initCatalog()
+        loadData(catalog)
 
     elif int(inputs[0]) == 2:
-        pass
-
+        print("Cargando el top de los videos")
+        topVideos()
+    elif int(inputs[0]) == 3:
+        print("El video mas trending en este pais es: ")
+        trendingCountry()
+    elif int(inputs[0]) == 4:
+        print("El video mas trending en esta categoria es: ")
+        trendingCategory()
+    elif int(inputs[0]) == 5:
+        print("Cargando los videos con mas likes que tienen este tag...")
+        mostLiked()
     else:
         sys.exit(0)
 sys.exit(0)
