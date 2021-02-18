@@ -47,15 +47,14 @@ def initCatalog():
     """
     Inicializa el catalogo de videos
     """
-    pass
+    return controller.initCatalog()
 
 
 def loadData(catalog):
     """
     Carga la informacion de los videos en la estructura de datos
     """
-    pass
-
+    controller.loadData(catalog)
 def topVideos():
     pass
 
@@ -78,9 +77,12 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
+        print("Cargando información de los archivos ......")
         catalog = initCatalog()
         loadData(catalog)
+        print('Videos cargados: ' + str(lt.size(catalog['videos'])))
+        print('Categorias cargadas: ' + str(lt.size(catalog['categories'])))
+       
 
     elif int(inputs[0]) == 2:
         print("Cargando el top de los videos")
