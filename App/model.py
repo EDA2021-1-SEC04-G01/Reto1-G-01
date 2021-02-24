@@ -36,7 +36,7 @@ los mismos.
 """
 
 # Construccion de modelos
-def newCatalog():
+def newCatalog(type_list):
     """
     Inicializa el catálogo de libros. Crea una lista vacia para guardar
     todos los libros, adicionalmente, crea una lista vacia para los autores,
@@ -47,7 +47,12 @@ def newCatalog():
                'categories': None}
 
     catalog['videos'] = lt.newList()
-    catalog['categories'] = lt.newList('ARRAY_LIST')
+
+    if type_list==1:
+        catalog['categories'] = lt.newList('LINKED_LIST')
+    elif type_list==2:
+
+        catalog['categories'] = lt.newList('ARRAY_LIST')
     
 
     return catalog
@@ -57,7 +62,6 @@ def addVideo(catalog, video):
 def addCategory(catalog, category):
     lt.addLast(catalog['categories'], category)
 
-    
 
 
 # Funciones para creacion de datos
@@ -65,5 +69,14 @@ def addCategory(catalog, category):
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
+    
+def cmpVideosByViews(video1, video2): """
+Devuelve verdadero (True) si los 'views' de video1 son menores que los del video2 Args:
+video1: informacion del primer video que incluye su valor 'views' video2: informacion del segundo video que incluye su valor 'views'
+"""
+video1MenosViews= True
+
+if video2
 
 # Funciones de ordenamiento

@@ -47,7 +47,10 @@ def initCatalog():
     """
     Inicializa el catalogo de videos
     """
-    return controller.initCatalog()
+    print("1- Arreglo")
+    print("2- Lista encadenada")
+    type_list=int(input('Seleccione una representación de lista para continuar\n'))
+    return controller.initCatalog(type_list)
 
 
 def loadData(catalog):
@@ -77,7 +80,7 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ......")
+        print("Cargando información de los archivos ......")      
         catalog = initCatalog()
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
