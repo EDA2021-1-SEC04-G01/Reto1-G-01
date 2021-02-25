@@ -39,11 +39,7 @@ los mismos.
 """
 
 # Construccion de modelos
-<<<<<<< HEAD
 def newCatalog(dtEstructure):
-=======
-def newCatalog(type_list):
->>>>>>> 2c6481b63c3fab74ccb7ba8b54c1c794b625cbd9
     """
     Inicializa el catálogo de libros. Crea una lista vacia para guardar
     todos los libros, adicionalmente, crea una lista vacia para los autores,
@@ -52,7 +48,6 @@ def newCatalog(type_list):
     """
     catalog = {'videos': None, "countries": None,
                'categories': None}
-<<<<<<< HEAD
     if dtEstructure == 0:       
         catalog['videos'] = lt.newList('ARRAY_LIST' )
         catalog["countries"] = lt.newList('ARRAY_LIST')
@@ -64,18 +59,6 @@ def newCatalog(type_list):
         catalog["countries"] = lt.newList("SINGLE_LINKED")
         
         
-=======
-
-    catalog['videos'] = lt.newList()
-
-    if type_list==1:
-        catalog['categories'] = lt.newList('LINKED_LIST')
-    elif type_list==2:
-
-        catalog['categories'] = lt.newList('ARRAY_LIST')
-    
-
->>>>>>> 2c6481b63c3fab74ccb7ba8b54c1c794b625cbd9
     return catalog
 # Funciones para agregar informacion al catalogo
 def addVideo(catalog, video):
@@ -100,6 +83,7 @@ def addVideoCountry(catalog, countryname, video):
 def addCategory(catalog, category):
     lt.addLast(catalog['categories'], category)
 
+    
 
 
 # Funciones para creacion de datos
@@ -109,9 +93,9 @@ def newCountry(name):
     country["name"] = name
     country["videos"] = lt.newList("ARRAY_LIST")
     return country
-def topVideos(catalog, topAmount, countryname):
+def topVideos(catalog, topAmount, countryname, category):
     poscountry = lt.isPresent(catalog["countries"], countryname)
-   if poscountry > 0:
+    if poscountry > 0:
         country = lt.getElement(catalog["countries"], poscountry)
         lt.subList(country,1,topAmount)
     
@@ -122,7 +106,6 @@ def topVideos(catalog, topAmount, countryname):
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
-<<<<<<< HEAD
 # Funciones de ordenamiento
 def cmpVideosByViews(video1, video2):
     
@@ -139,17 +122,6 @@ def sortVideos(catalog, sorting):
 
 
 
+
     
    
-=======
-    
-def cmpVideosByViews(video1, video2): """
-Devuelve verdadero (True) si los 'views' de video1 son menores que los del video2 Args:
-video1: informacion del primer video que incluye su valor 'views' video2: informacion del segundo video que incluye su valor 'views'
-"""
-video1MenosViews= True
-
-if video2
-
-# Funciones de ordenamiento
->>>>>>> 2c6481b63c3fab74ccb7ba8b54c1c794b625cbd9

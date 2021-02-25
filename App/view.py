@@ -47,14 +47,7 @@ def initCatalog(dtEstructure):
     """
     Inicializa el catalogo de videos
     """
-<<<<<<< HEAD
     return controller.initCatalog(dtEstructure)
-=======
-    print("1- Arreglo")
-    print("2- Lista encadenada")
-    type_list=int(input('Seleccione una representación de lista para continuar\n'))
-    return controller.initCatalog(type_list)
->>>>>>> 2c6481b63c3fab74ccb7ba8b54c1c794b625cbd9
 
 
 def loadData(catalog):
@@ -84,15 +77,10 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-<<<<<<< HEAD
         print("Seleccione la estructura de datos que deseea escoger: ")
         dtEstructure= int(input("Para Array escriba 0, Para Single-Linked escriba 1: "))
         print("Cargando información de los archivos ......")
         catalog = initCatalog(dtEstructure)
-=======
-        print("Cargando información de los archivos ......")      
-        catalog = initCatalog()
->>>>>>> 2c6481b63c3fab74ccb7ba8b54c1c794b625cbd9
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categories'])))
@@ -108,7 +96,7 @@ while True:
         category= input("Ingrese la categoria de los videos: ")
         print("Cargando el top de los videos")
         sortVideos(catalog, sorting)
-        topVideos(catalog,topAmount,countryname, category)
+        #topVideos(catalog,topAmount,countryname, category)
     elif int(inputs[0]) == 3:
         print("El video mas trending en este pais es: ")
         trendingCountry()
