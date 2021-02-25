@@ -30,11 +30,19 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
+<<<<<<< HEAD
 def initCatalog(dtEstructure):
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     catalog = model.newCatalog(dtEstructure)
+=======
+def initCatalog(type_list):
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    catalog = model.newCatalog(type_list)
+>>>>>>> 2c6481b63c3fab74ccb7ba8b54c1c794b625cbd9
     return catalog
 
 # Funciones para la carga de datos
