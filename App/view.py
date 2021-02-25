@@ -43,11 +43,11 @@ def printMenu():
     print("5- Buscar videos con mas likes con un tag especifico")
     print("0- Salir")
 
-def initCatalog():
+def initCatalog(dtEstructure):
     """
     Inicializa el catalogo de videos
     """
-    return controller.initCatalog()
+    return controller.initCatalog(dtEstructure)
 
 
 def loadData(catalog):
@@ -55,8 +55,8 @@ def loadData(catalog):
     Carga la informacion de los videos en la estructura de datos
     """
     controller.loadData(catalog)
-def topVideos():
-    pass
+def topVideos(catalog, topAmount, country):
+    controller.topVideos(catalog, topAmount, country)
 
 def trendingCountry():
     pass
@@ -77,16 +77,26 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        print("Seleccione la estructura de datos que deseea escoger: ")
+        dtEstructure= int(input("Para Array escriba 0, Para Single-Linked escriba 1: "))
         print("Cargando información de los archivos ......")
-        catalog = initCatalog()
+        catalog = initCatalog(dtEstructure)
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categories'])))
+        print(catalog['categories'])
        
+        
 
     elif int(inputs[0]) == 2:
+        print("Seleccione el tipo de algoritmo de ordenamiento\n Shell= 0\n Insertion = 1\n Selection = 2")
+        sorting = int(input("Ingrese el numero: "))
+        countryname= input("Ingrese el pais del que desea consultar el top: ")
+        topAmount= int(input("Escoga la cantidad de videos que desea ver en el top: "))
+        category= input("Ingrese la categoria de los videos: ")
         print("Cargando el top de los videos")
-        topVideos()
+        sortVideos(catalog, sorting)
+        topVideos(catalog,topAmount,countryname, category)
     elif int(inputs[0]) == 3:
         print("El video mas trending en este pais es: ")
         trendingCountry()

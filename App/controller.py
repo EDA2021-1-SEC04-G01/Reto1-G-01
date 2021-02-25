@@ -30,11 +30,11 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
-def initCatalog():
+def initCatalog(dtEstructure):
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    catalog = model.newCatalog()
+    catalog = model.newCatalog(dtEstructure)
     return catalog
 
 # Funciones para la carga de datos
@@ -45,6 +45,7 @@ def loadData(catalog):
     """
     loadVideos(catalog)
     loadCategories(catalog)
+    
 
 def loadVideos(catalog):
     videosfile = cf.data_dir + 'videos-small.csv'
@@ -57,9 +58,5 @@ def loadCategories(catalog):
     input_file = csv.DictReader(open(categoriesfile, encoding='utf-8'))
     for category in input_file:
         model.addCategory(catalog, category)
-    
 
 
-# Funciones de ordenamiento
-
-# Funciones de consulta sobre el catálogo
