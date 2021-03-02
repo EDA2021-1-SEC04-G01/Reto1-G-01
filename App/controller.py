@@ -38,20 +38,20 @@ def initCatalog(dtEstructure):
     return catalog
 
 # Funciones para la carga de datos
-def loadData(catalog):
+def loadData(catalog, dtEstructure):
     """
     Carga los datos de los archivos y cargar los datos en la
     estructura de datos
     """
-    loadVideos(catalog)
+    loadVideos(catalog, dtEstructure)
     loadCategories(catalog)
     
 
-def loadVideos(catalog):
-    videosfile = cf.data_dir + 'videos-small.csv'
+def loadVideos(catalog, dtEstructure):
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
-        model.addVideo(catalog, video)
+        model.addVideo(catalog, video, dtEstructure)
 
 def loadCategories(catalog):
     categoriesfile = cf.data_dir + 'category-id.csv'
@@ -61,11 +61,10 @@ def loadCategories(catalog):
 
 
 # Funciones de ordenamiento
-def sortVideos(catalog, sorting):
-    model.sortVideos(catalog, sorting)
+
 
 # Funciones de consulta sobre el catálogo
-def topVideos(catalog, topAmount, countryname, category):
-    model.topVideos(catalog, topAmount, countryname, category)
+def topVideos(catalog, topAmount, countryname, category,sorting):
+    return model.topVideos(catalog, topAmount, countryname, category,sorting)
 
 

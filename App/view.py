@@ -50,13 +50,13 @@ def initCatalog(dtEstructure):
     return controller.initCatalog(dtEstructure)
 
 
-def loadData(catalog):
+def loadData(catalog, dtEstructure):
     """
     Carga la informacion de los videos en la estructura de datos
     """
-    controller.loadData(catalog)
-def topVideos(catalog, topAmount, country):
-    controller.topVideos(catalog, topAmount, country)
+    controller.loadData(catalog, dtEstructure)
+def topVideos(catalog, topAmount, country, category,sorting):
+    controller.topVideos(catalog, topAmount, country, category,sorting)
 
 def trendingCountry():
     pass
@@ -78,25 +78,24 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Seleccione la estructura de datos que deseea escoger: ")
-        dtEstructure= int(input("Para Array escriba 0, Para Single-Linked escriba 1: "))
+        dt= int(input("Para Array escriba 0, Para Single-Linked escriba 1: "))
+        if dt == 0:
+            dtEstructure='ARRAY_LIST'
+        else:
+             dtEstructure="SINGLE_LINKED"
         print("Cargando información de los archivos ......")
         catalog = initCatalog(dtEstructure)
-        loadData(catalog)
+        loadData(catalog, dtEstructure)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
-        print('Categorias cargadas: ' + str(lt.size(catalog['categories'])))
-        print(catalog['categories'])
-       
-        
-
+        print('Categorias cargadas: ' + str(lt.size(catalog['categories']))) 
     elif int(inputs[0]) == 2:
-        print("Seleccione el tipo de algoritmo de ordenamiento\n Shell= 0\n Insertion = 1\n Selection = 2")
+        print("Seleccione el tipo de algoritmo de ordenamiento\n Shell= 0\n Insertion = 1\n Selection = 2\n Merge = 3\n Quick = 4")
         sorting = int(input("Ingrese el numero: "))
         countryname= input("Ingrese el pais del que desea consultar el top: ")
         topAmount= int(input("Escoga la cantidad de videos que desea ver en el top: "))
         category= input("Ingrese la categoria de los videos: ")
         print("Cargando el top de los videos")
-        sortVideos(catalog, sorting)
-        #topVideos(catalog,topAmount,countryname, category)
+        print(topVideos(catalog,topAmount,countryname,category,sorting))
     elif int(inputs[0]) == 3:
         print("El video mas trending en este pais es: ")
         trendingCountry()

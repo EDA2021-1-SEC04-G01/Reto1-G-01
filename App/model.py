@@ -30,6 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import selectionsort as sel
+from DISClib.Algorithms.Sorting import mergesort as mer
+from DISClib.Algorithms.Sorting import quicksort as qck
 assert cf
 import time
 
@@ -46,58 +48,50 @@ def newCatalog(dtEstructure):
     una lista vacia para los generos y una lista vacia para la asociación
     generos y libros. Retorna el catalogo inicializado.
     """
-    catalog = {'videos': None, "countries": None,
-               'categories': None}
-    if dtEstructure == 0:       
-        catalog['videos'] = lt.newList('ARRAY_LIST' )
-        catalog["countries"] = lt.newList('ARRAY_LIST')
-        catalog['categories'] = lt.newList('ARRAY_LIST')
-        
-    else:
-        catalog['videos'] = lt.newList("SINGLE_LINKED")
-        catalog['categories'] = lt.newList("SINGLE_LINKED")
-        catalog["countries"] = lt.newList("SINGLE_LINKED")
-        
-        
+    catalog = {'videos': None,
+               'categories': None} 
+    catalog['videos'] = lt.newList(dtEstructure)
+    catalog["categories"] = lt.newList(dtEstructure)          
     return catalog
 # Funciones para agregar informacion al catalogo
-def addVideo(catalog, video):
-    countries= []
-    lt.addLast(catalog['videos'], video)
-    countries.append(video["country"])
-    
-    for country in countries:
-        addVideoCountry(catalog, country, video)
-
-def addVideoCountry(catalog, countryname, video):
-
-    countries = catalog["countries"]
-    poscountry = lt.isPresent(countries, countryname)
-    if poscountry > 0:
-        country = lt.getElement(countries, poscountry)
+def addVideo(catalog, video, dtEstructure):
+    if not video["country"] in  catalog.keys():
+        tc= video["country"]
+        catalog[tc]= None
+        catalog[tc]= lt.newList(dtEstructure)
+        lt.addLast(catalog[tc], video)
     else:
-        country = newCountry(countryname)
-        lt.addLast(countries, country)
-    lt.addLast(country["videos"], video)
+        tc= video["country"]
+        lt.addLast(catalog[tc], video)
+
+    lt.addLast(catalog['videos'], video)
 
 def addCategory(catalog, category):
-    lt.addLast(catalog['categories'], category)
+    lt.addLast(catalog["categories"], category)
 
+# Funciones para creacion de dato
+
+def topVideos(catalog, topAmount, countryname, category,sorting):
+    for i in catalog["categories"]["elements"]:
+        if i["name"] == category:
+            idnumber= i["id"]
+    top= lt.newList()
+    for i in catalog[countryname]["elements"]:
+        if i["category_id"] == idnumber:
+            lt.addLast(top, i)
+
+    sortVideos(top, sorting)
+    if topAmount > lt.size(top):
+        print("No se puede mostrar el top "+str(topAmount)+", ya que solo existen "+str(lt.size(top))+" videos que cumplen con los filtros seleccioados")
+        print("Se mostrara en cambio el top "+str(lt.size(top)))
+        topAmount= lt.size(top)
+    sub= lt.subList(top, 1,topAmount)
+    for i in range(1, lt.size(sub)+1):
+        a=lt.getElement(sub, i)
+        print("Posicion: "+str(i)+"|"+"Titulo: "+a["title"]+"|Vistas: "+a["views"])
+    
     
 
-
-# Funciones para creacion de datos
-def newCountry(name):
-
-    country = {"name": "", "videos": None, "average_rating": 0}
-    country["name"] = name
-    country["videos"] = lt.newList("ARRAY_LIST")
-    return country
-def topVideos(catalog, topAmount, countryname, category):
-    poscountry = lt.isPresent(catalog["countries"], countryname)
-    if poscountry > 0:
-        country = lt.getElement(catalog["countries"], poscountry)
-        lt.subList(country,1,topAmount)
     
 
 # Funciones de consulta
@@ -107,17 +101,29 @@ def topVideos(catalog, topAmount, countryname, category):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento
+def cmpCountries(country1, country):
+    if (country1.lower() in country['name'].lower()):
+        return 0
+    return -1
+
+
 def cmpVideosByViews(video1, video2):
     
-    return (float(video1['views']) > float(video2['views']))
+    return int(video1['views']) > int(video2['views'])
 
-def sortVideos(catalog, sorting):
+def sortVideos(lt, sorting):
     if sorting == 0:
-        sa.sort(catalog["videos"], cmpVideosByViews)
+        sa.sort(lt, cmpVideosByViews)
     elif sorting == 1:
-        ins.sort(catalog["videos"], cmpVideosByViews)
+        ins.sort(lt, cmpVideosByViews)
+    elif sorting == 2:
+        sel.sort(lt, cmpVideosByViews)
+    elif sorting == 3:
+        mer.sort(lt, cmpVideosByViews)
     else:
-        sel.sort(catalog["videos"], cmpVideosByViews)
+        qck.sort(lt, cmpVideosByViews)
+    
+        
 
 
 
