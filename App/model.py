@@ -72,11 +72,11 @@ def addCategory(catalog, category):
 # Funciones para creacion de dato
 
 def topVideos(catalog, topAmount, countryname, category,sorting):
-    for i in catalog["categories"]["elements"]:
+    for i in lt.iterator(catalog["categories"]):
         if i["name"] == category:
             idnumber= i["id"]
     top= lt.newList()
-    for i in catalog[countryname]["elements"]:
+    for i in lt.iterator(catalog[countryname]):
         if i["category_id"] == idnumber:
             lt.addLast(top, i)
 
