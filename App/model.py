@@ -112,6 +112,7 @@ def cmpVideosByViews(video1, video2):
     return int(video1['views']) > int(video2['views'])
 
 def sortVideos(lt, sorting):
+    
     if sorting == 0:
         sa.sort(lt, cmpVideosByViews)
     elif sorting == 1:
@@ -122,12 +123,3 @@ def sortVideos(lt, sorting):
         mer.sort(lt, cmpVideosByViews)
     else:
         qck.sort(lt, cmpVideosByViews)
-    
-        
-
-
-
-
-
-    
-   
