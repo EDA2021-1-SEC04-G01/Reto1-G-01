@@ -66,5 +66,3 @@ def loadCategories(catalog):
 # Funciones de consulta sobre el catálogo
 def topVideos(catalog, topAmount, countryname, category,sorting):
     return model.topVideos(catalog, topAmount, countryname, category,sorting)
-
-

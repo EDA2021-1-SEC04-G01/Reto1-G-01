@@ -25,6 +25,7 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+import time
 
 
 """
@@ -94,8 +95,12 @@ while True:
         countryname= input("Ingrese el pais del que desea consultar el top: ")
         topAmount= int(input("Escoga la cantidad de videos que desea ver en el top: "))
         category= input("Ingrese la categoria de los videos: ")
+        start_time = time.process_time()
         print("Cargando el top de los videos")
         print(topVideos(catalog,topAmount,countryname,category,sorting))
+        stop_time = time.process_time()
+        elapsed_time_mseg = (stop_time - start_time)*1000
+        print("El tiempo [ms] es: "+str(elapsed_time_mseg))
     elif int(inputs[0]) == 3:
         print("El video mas trending en este pais es: ")
         trendingCountry()
