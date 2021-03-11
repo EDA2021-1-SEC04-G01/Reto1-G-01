@@ -23,7 +23,7 @@
 import config as cf
 import sys
 import controller
-from DISClib.ADT import list as lt
+from DISClib.ADT import list as lt # pylint: disable=import-error
 assert cf
 import time
 

@@ -26,12 +26,12 @@
 
 
 import config as cf
-from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
-from DISClib.Algorithms.Sorting import insertionsort as ins
-from DISClib.Algorithms.Sorting import selectionsort as sel
-from DISClib.Algorithms.Sorting import mergesort as mer
-from DISClib.Algorithms.Sorting import quicksort as qck
+from DISClib.ADT import list as lt # pylint: disable=import-error
+from DISClib.Algorithms.Sorting import shellsort as sa # pylint: disable=import-error
+from DISClib.Algorithms.Sorting import insertionsort as ins # pylint: disable=import-error
+from DISClib.Algorithms.Sorting import selectionsort as sel # pylint: disable=import-error
+from DISClib.Algorithms.Sorting import mergesort as mer # pylint: disable=import-error
+from DISClib.Algorithms.Sorting import quicksort as qck # pylint: disable=import-error
 assert cf
 import time
 
