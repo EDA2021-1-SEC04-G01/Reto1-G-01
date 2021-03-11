@@ -42,18 +42,15 @@ los mismos.
 
 # Construccion de modelos
 def newCatalog(dtEstructure):
-    """
-    Inicializa el catálogo de libros. Crea una lista vacia para guardar
-    todos los libros, adicionalmente, crea una lista vacia para los autores,
-    una lista vacia para los generos y una lista vacia para la asociación
-    generos y libros. Retorna el catalogo inicializado.
-    """
     catalog = {'videos': None,
-               'categories': None} 
+               'categories': None, "tags":{}} 
     catalog['videos'] = lt.newList(dtEstructure)
-    catalog["categories"] = lt.newList(dtEstructure)          
+    catalog["categories"] = lt.newList(dtEstructure) 
+    
+          
     return catalog
 # Funciones para agregar informacion al catalogo
+
 def addVideo(catalog, video, dtEstructure):
     if not video["country"] in  catalog.keys():
         tc= video["country"]
@@ -65,12 +62,22 @@ def addVideo(catalog, video, dtEstructure):
         lt.addLast(catalog[tc], video)
 
     lt.addLast(catalog['videos'], video)
+    tags = video["tags"].split("|")
+    
+    for tag in tags:
+        a=tag.strip('\"')
+        if not a in catalog["tags"].keys():
+            catalog["tags"][a]= None
+            catalog["tags"][a]= lt.newList(dtEstructure)
+            lt.addLast(catalog["tags"][a], video)
+        else:
+             lt.addLast(catalog["tags"][a], video)
 
 def addCategory(catalog, category):
     lt.addLast(catalog["categories"], category)
+# Funciones para creacion de datos
 
-# Funciones para creacion de dato
-
+# Funciones de consulta
 def topVideos(catalog, topAmount, countryname, category,sorting):
     for i in lt.iterator(catalog["categories"]):
         if i["name"] == category:
@@ -88,31 +95,70 @@ def topVideos(catalog, topAmount, countryname, category,sorting):
     sub= lt.subList(top, 1,topAmount)
     for i in range(1, lt.size(sub)+1):
         a=lt.getElement(sub, i)
-        print("Posicion: "+str(i)+"|"+"Titulo: "+a["title"]+"|Vistas: "+a["views"])
-    
-    
+        print("Posicion: "+str(i)+"|"+"Titulo: "+a["title"]+"|Canal: "+a["channel_title"]+"|Fecha publicacion: "+a["publish_time"]+"|Vistas: "+a["views"]+"|Likes: "+a["likes"]+"|Dislikes: "+a["dislikes"])
 
-    
+def trendingCountry(catalog, country):
+    lista= {}
+    for i in lt.iterator(catalog[country]):
+        if not i["title"] in lista.keys():
+            lista[i["title"]]= None
+            lista[i["title"]]= 1
+        else:
+            lista[i["title"]]+= 1
+    vid= max(lista, key= lista.get)
+    for i in lt.iterator(catalog[country]):
+        if i["title"] == vid:
+            channel= i["channel_title"]
+    print("Titulo: "+vid+"\nNombre del canal: "+channel+"\nPais: "+country+"\nNumero de dias: "+str(lista[vid]))
 
-# Funciones de consulta
+def trendingCategory(catalog, category):
+    trending= {}
+    for i in lt.iterator(catalog["categories"]):
+        if i["name"] == category:
+            idnumber= i["id"]
+    for i in lt.iterator(catalog["videos"]):
+        if i["category_id"]== idnumber:
+            if not i["title"] in trending.keys():
+                trending[i["title"]]= None
+                trending[i["title"]]= 1
+            else:
+                trending[i["title"]]+= 1
+    vid= max(trending, key= trending.get)
+    for i in lt.iterator(catalog["videos"]):
+        if i["title"] == vid:
+            channel= i["channel_title"]
+    print("Titulo: "+vid+"\nNombre del canal: "+channel+"\nId categoria: "+idnumber+"\nNumero de dias: "+str(trending[vid]))
 
+def mostLiked(catalog, tagname, number, country):
+    lista= lt.newList()
+    for i in lt.iterator(catalog["tags"][tagname]):
+        if i["country"] == country:
+            lt.addLast(lista, i)
+    mer.sort(lista, cmpVideosByLikes)
+    sub= lt.subList(lista, 1, number)
+    for i in range(1, lt.size(sub)+1):
+        a= lt.getElement(sub, i)
+        print("Posicion: "+str(i)+"\nTitulo: "+a["title"]+"\nCanal: "+a["channel_title"]+"\nFecha publicacion: "+a["publish_time"]+"\nVistas: "+a["views"]+"\nLikes: "+a["likes"]+"\nDislikes: "+a["dislikes"]+"\nTags: "+a["tags"])
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-
-# Funciones de ordenamiento
+def comparetags(tagname1, tag):
+    if (tagname1.lower() in tag['name'].lower()):
+        return 0
+    return -1
 def cmpCountries(country1, country):
     if (country1.lower() in country['name'].lower()):
         return 0
     return -1
 
-
 def cmpVideosByViews(video1, video2):
-    
     return int(video1['views']) > int(video2['views'])
 
-def sortVideos(lt, sorting):
-    
+def cmpVideosByLikes(video1, video2):
+    return (int(video1['likes']) > int(video2['likes']))
+
+# Funciones de ordenamiento
+def sortVideos(lt, sorting):  
     if sorting == 0:
         sa.sort(lt, cmpVideosByViews)
     elif sorting == 1:

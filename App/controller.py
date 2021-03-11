@@ -66,3 +66,12 @@ def loadCategories(catalog):
 # Funciones de consulta sobre el catálogo
 def topVideos(catalog, topAmount, countryname, category,sorting):
     return model.topVideos(catalog, topAmount, countryname, category,sorting)
+
+def trendingCountry(catalog, country):
+    return model.trendingCountry(catalog, country)
+def trendingCategory(catalog, category):
+    return model.trendingCategory(catalog, category)
+
+def mostLiked(catalog, tag, number, country):
+    return model.mostLiked(catalog, tag, number, country)
+    

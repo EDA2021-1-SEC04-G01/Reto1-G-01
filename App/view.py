@@ -59,14 +59,17 @@ def loadData(catalog, dtEstructure):
 def topVideos(catalog, topAmount, country, category,sorting):
     controller.topVideos(catalog, topAmount, country, category,sorting)
 
-def trendingCountry():
-    pass
+def trendingCountry(catalog, country):
+    controller.trendingCountry(catalog, country)
 
-def trendingCategory():
-    pass
+def trendingCategory(catalog, category):
+    controller.trendingCategory(catalog, category)
 
-def mostLiked():
-    pass
+
+def mostLiked(catalog, tag, number, country):
+    controller.mostLiked(catalog, tag, number, country)
+    
+    
 
 
 catalog = None
@@ -102,14 +105,21 @@ while True:
         elapsed_time_mseg = (stop_time - start_time)*1000
         print("El tiempo [ms] es: "+str(elapsed_time_mseg))
     elif int(inputs[0]) == 3:
+        country= input("Ingrese el pais que desea consultar : ")
         print("El video mas trending en este pais es: ")
-        trendingCountry()
+        trendingCountry(catalog, country)      
     elif int(inputs[0]) == 4:
+        category= input("Ingrese la categoria que desea consultar : ")
         print("El video mas trending en esta categoria es: ")
-        trendingCategory()
+        trendingCategory(catalog, category)
     elif int(inputs[0]) == 5:
+        tag= input("Ingrese el tag que desea consultar : ")
+        country= input("Ingrese el pais que desea consultar : ")
+        number= int(input("Ingrese la cantidad de videos que desea consultar : "))
         print("Cargando los videos con mas likes que tienen este tag...")
-        mostLiked()
+        mostLiked(catalog, tag, number, country)
+        
+        
     else:
         sys.exit(0)
 sys.exit(0)
