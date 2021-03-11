@@ -131,23 +131,25 @@ def trendingCategory(catalog, category):
 
 def mostLiked(catalog, tagname, number, country):
     lista= lt.newList()
+    videos= []
+    lista2= lt.newList()
     for i in lt.iterator(catalog["tags"][tagname]):
         if i["country"] == country:
             lt.addLast(lista, i)
     mer.sort(lista, cmpVideosByLikes)
-    sub= lt.subList(lista, 1, number)
+    for i in lt.iterator(lista):
+        if not i["video_id"] in videos:
+            videos.append(i["video_id"])
+            lt.addLast(lista2, i)
+    sub= lt.subList(lista2, 1, number)
     for i in range(1, lt.size(sub)+1):
         a= lt.getElement(sub, i)
-        print("Posicion: "+str(i)+"\nTitulo: "+a["title"]+"\nCanal: "+a["channel_title"]+"\nFecha publicacion: "+a["publish_time"]+"\nVistas: "+a["views"]+"\nLikes: "+a["likes"]+"\nDislikes: "+a["dislikes"]+"\nTags: "+a["tags"])
+        print("Posicion: "+str(i)+"\nTitulo: "+a["title"]+"\nCanal: "+a["channel_title"]+"\nFecha publicacion: "+a["publish_time"]+"\nVistas: "+a["views"]+"\nLikes: "+a["likes"]+"\nDislikes: "+a["dislikes"]+"\nTags: "+a["tags"]+"\n")
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def comparetags(tagname1, tag):
     if (tagname1.lower() in tag['name'].lower()):
-        return 0
-    return -1
-def cmpCountries(country1, country):
-    if (country1.lower() in country['name'].lower()):
         return 0
     return -1
 
